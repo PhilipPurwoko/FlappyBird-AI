@@ -14,7 +14,7 @@ class Bird:
         self.img_count = 0
         self.img = self.IMGS[0]
 
-    def jump(self):
+    def flap(self):
         self.vel = -10.5
         self.tick_count = 0
         self.height = self.y
