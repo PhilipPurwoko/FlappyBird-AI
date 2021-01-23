@@ -2,6 +2,7 @@ import pygame
 import neat
 import os
 import pickle
+import visualize
 
 from bird import Bird
 from floor import Floor
@@ -145,9 +146,16 @@ class Engine:
         )
 
         population = neat.Population(config)
+        stats = neat.StatisticsReporter()
         population.add_reporter(neat.StdOutReporter(True))
-        population.add_reporter(neat.StatisticsReporter())
+        population.add_reporter(stats)
 
         winner = population.run(self.game, 50)
+
         print('The Best Genome :')
         print(winner)
+
+        node_names = {-1:'A', -2: 'B', 0:'A XOR B'}
+        visualize.draw_net(config, winner, True, node_names=node_names)
+        visualize.plot_stats(stats, ylog=False, view=True)
+        visualize.plot_species(stats, view=True)
